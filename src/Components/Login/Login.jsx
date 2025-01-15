@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import GoogleLogin from "../SharedComponents/GoogleLogin";
 
 const Login = () => {
     const [error, setError] = useState({});
@@ -58,6 +59,7 @@ const Login = () => {
               </div>
             </form>
             <br />
+            <GoogleLogin></GoogleLogin>
 
             <p className="text-center font-semibold">
               Don't have an account ?{" "}

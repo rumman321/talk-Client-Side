@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Navber = () => {
+  const { user,logOut } = useAuth();
+  
+  const logout=()=>{
+    logOut()
+  }
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -55,7 +61,8 @@ const Navber = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="dropdown dropdown-end">
+          {
+            user?.email && <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
               role="button"
@@ -64,7 +71,7 @@ const Navber = () => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  src={user?.photoURL}
                 />
               </div>
             </div>
@@ -73,8 +80,8 @@ const Navber = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a className="justify-between">
-                User name
+                <a className="justify-between" >
+                  {user?.displayName}
                   <span className="badge">New</span>
                 </a>
               </li>
@@ -82,13 +89,20 @@ const Navber = () => {
                 <a>Dashboard</a>
               </li>
               <li>
-                <a>Logout</a>
+              <a onClick={logout} className="btn">Logout</a>
               </li>
             </ul>
           </div>
-          <Link to="/login">
-          <a className="btn">Join Us</a>
-          </Link>
+          }
+          {user?.email ? (
+            
+              " "
+            
+          ) : (
+            <Link to="/login">
+              <a className="btn">Join Us</a>
+            </Link>
+          )}
         </div>
       </div>
     </div>
