@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 const Navber = () => {
@@ -70,7 +70,7 @@ const Navber = () => {
             >
               <div className="w-10 rounded-full">
                 <img
-                  alt="Tailwind CSS Navbar component"
+                  alt={user?.displayName}
                   src={user?.photoURL}
                 />
               </div>
@@ -86,7 +86,9 @@ const Navber = () => {
                 </a>
               </li>
               <li>
+                <NavLink to="/dashboard">
                 <a>Dashboard</a>
+                </NavLink>
               </li>
               <li>
               <a onClick={logout} className="btn">Logout</a>

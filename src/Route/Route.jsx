@@ -3,6 +3,9 @@ import MainLayOut from "../Layout/MainLayOut";
 import Home from "../Pages/Home/Home";
 import Login from "../Components/Login/Login";
 import SignUp from "../Components/Signup/SignUp";
+import DashBoard from "../Layout/DashBoard";
+import AddPost from "../Pages/DashBoard/AddPost/AddPost";
+import ManageUser from "../Pages/DashBoard/ManageUser/ManageUser";
 
 export const router = createBrowserRouter([
   {
@@ -23,4 +26,19 @@ export const router = createBrowserRouter([
         }
     ]
   },
+  {
+    path:'/dashboard',
+    element:<DashBoard></DashBoard>,
+    children:[
+        {
+            path:'addPost',
+            element:<AddPost></AddPost>
+        },
+        //admin
+        {
+          path:'manageUser',
+          element:<ManageUser></ManageUser>
+        }
+    ]
+  }
 ]);
