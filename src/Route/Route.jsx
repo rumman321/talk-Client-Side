@@ -6,6 +6,8 @@ import SignUp from "../Components/Signup/SignUp";
 import DashBoard from "../Layout/DashBoard";
 import AddPost from "../Pages/DashBoard/AddPost/AddPost";
 import ManageUser from "../Pages/DashBoard/ManageUser/ManageUser";
+import AdminProfile from "../Pages/DashBoard/Admin/AdminProfile";
+import Announcement from "../Pages/DashBoard/Admin/Announcement";
 
 export const router = createBrowserRouter([
   {
@@ -36,8 +38,16 @@ export const router = createBrowserRouter([
         },
         //admin
         {
+          path:'adminProfile',
+          element:<AdminProfile></AdminProfile>
+        },
+        {
           path:'manageUser',
           element:<ManageUser></ManageUser>
+        },
+        {
+          path:'announcement',
+          element:<Announcement></Announcement>
         }
     ]
   }

@@ -1,10 +1,12 @@
 
-import { FaHome, FaList } from "react-icons/fa";
-import { MdAssignmentAdd } from "react-icons/md";
+import { FaHome, FaList, FaMicrophone } from "react-icons/fa";
+import { MdAssignmentAdd, MdPerson } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 
 
 const DashBoard = () => {
+  //todo 
+  const isAdmin = true
     return (
         <div>
             <div className="flex">
@@ -12,12 +14,12 @@ const DashBoard = () => {
       <div className="w-64 min-h-screen bg-orange-500 ">
         <ul className="menu">
           
-            <>
-              
+            {
+              isAdmin ? <>
               <li>
                 <NavLink to="/dashboard/adminProfile">
                  
-                  <FaHome></FaHome> Admin Profile
+                  <MdPerson></MdPerson> Admin Profile
                 </NavLink>
               </li>
               <li>
@@ -26,6 +28,23 @@ const DashBoard = () => {
                   <FaHome></FaHome> Manage Users
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/dashboard/announcement">
+                 
+                  <FaMicrophone></FaMicrophone> Make Announcement
+                </NavLink>
+              </li>
+             
+              </> :
+              <>
+              
+              <li>
+                <NavLink to="/dashboard/adminProfile">
+                 
+                  <FaHome></FaHome> Admin Profile
+                </NavLink>
+              </li>
+              
               <li>
                 <NavLink to="/dashboard/myProfile">
                  
@@ -48,6 +67,7 @@ const DashBoard = () => {
 
              
             </>
+            }
         
           <div className="divider "></div>
           <li>

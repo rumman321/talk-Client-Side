@@ -1,14 +1,26 @@
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const GoogleLogin = () => {
   const { googleSignIn } = useAuth();
+  const axiosPublic = useAxiosPublic()
   const navigate = useNavigate()
   const handleGoogleSign = () => {
-    googleSignIn().then((res) => {
-      navigate("/");
-    });
+    googleSignIn()
+    .then(res=>{
+      console.log(res.user);
+      const userInfo ={
+          email: res?.user?.email,
+          name: res?.user?.displayName
+      }
+      axiosPublic.post("/users", userInfo)
+      .then(res =>{
+          console.log(res.data)
+          navigate("/")
+      })
+  })
   };
   return (
     <div>
