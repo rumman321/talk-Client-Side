@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import GoogleLogin from "../SharedComponents/GoogleLogin";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const [error, setError] = useState({});
     const {signIn} = useAuth()
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = new FormData(e.target);
@@ -16,6 +20,12 @@ const Login = () => {
         .then(res=>{
             const user = res.user
             console.log(user);
+            Swal.fire({
+              title: "Sign In Success!",
+              icon: "success",
+              draggable: true
+            });
+            navigate(from, { replace: true })
         })
     }
   return (

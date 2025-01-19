@@ -8,6 +8,8 @@ import AddPost from "../Pages/DashBoard/AddPost/AddPost";
 import ManageUser from "../Pages/DashBoard/ManageUser/ManageUser";
 import AdminProfile from "../Pages/DashBoard/Admin/AdminProfile";
 import Announcement from "../Pages/DashBoard/Admin/Announcement";
+import MemberShip from "../Pages/MemberShip/MemberShip";
+import Privateroute from "./Privateroute";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +19,10 @@ export const router = createBrowserRouter([
         {
             path:'/',
             element:<Home></Home>
+        },
+        {
+          path:'/memberShip',
+          element:<Privateroute><MemberShip></MemberShip></Privateroute>
         },
         {
             path:'/login',

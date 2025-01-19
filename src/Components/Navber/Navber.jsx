@@ -53,7 +53,9 @@ const Navber = () => {
             </li>
 
             <li>
+              <NavLink to='/memberShip'>
               <a>Membership</a>
+              </NavLink>
             </li>
             <li>
               <a>Notification icon</a>

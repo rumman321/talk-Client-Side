@@ -2,11 +2,12 @@
 import { FaHome, FaList, FaMicrophone } from "react-icons/fa";
 import { MdAssignmentAdd, MdPerson } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
 
 
 const DashBoard = () => {
   //todo 
-  const isAdmin = true
+  const [isAdmin] = useAdmin()
     return (
         <div>
             <div className="flex">
@@ -38,12 +39,7 @@ const DashBoard = () => {
               </> :
               <>
               
-              <li>
-                <NavLink to="/dashboard/adminProfile">
-                 
-                  <FaHome></FaHome> Admin Profile
-                </NavLink>
-              </li>
+             
               
               <li>
                 <NavLink to="/dashboard/myProfile">
