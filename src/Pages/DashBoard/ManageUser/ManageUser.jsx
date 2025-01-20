@@ -3,16 +3,22 @@ import { useQuery } from "@tanstack/react-query";
 import { TiDeleteOutline } from "react-icons/ti";
 import { FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const ManageUser = () => {
   const axiosSecure = useAxiosSecure();
+  const [search, setSearchQuery] = useState("");
   const { data: users = [], refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", search],
     queryFn: async () => {
-      const res = await axiosSecure("/users");
+      const res = await axiosSecure(`/users?search=${search}`);
       return res.data;
     },
   });
+
+  const handleSearch = async (e) => {
+    setSearchQuery(e.target.value); // Update the search state
+  };
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/${user._id}`).then((res) => {
       console.log(res.data);
@@ -54,7 +60,15 @@ const ManageUser = () => {
   };
   return (
     <div>
-      <h1>all users {users.length}</h1>
+      <div className="my-4">
+        <input
+          type="text"
+          placeholder="Search by username"
+          className="input input-bordered w-full max-w-md"
+          value={search} // Bind to the search state
+          onChange={handleSearch} // Trigger handleSearch on every change
+        />
+      </div>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           {/* head */}

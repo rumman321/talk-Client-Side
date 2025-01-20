@@ -1,8 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Navber = () => {
   const { user,logOut } = useAuth();
+  //amr tw status ta dekhaite hbe kintu users route  sudhu admin er jonno
+  // const axiosPublic = useAxiosPublic()
+
+  // axiosPublic.get("/users")
+  // .then((response) => {
+  //   console.log(response.data);
+  // })
   
   const logout=()=>{
     logOut()

@@ -29,7 +29,7 @@ const SignUp = () => {
                 name:data?.name,
                 email:data?.email,
                 photo:data?.photo,
-                
+                Status:'Silver'
             }
             axiosPublic.post('/users',userInfo)
             .then(res=>{
