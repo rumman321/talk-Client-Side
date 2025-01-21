@@ -10,6 +10,7 @@ import AdminProfile from "../Pages/DashBoard/Admin/AdminProfile";
 import Announcement from "../Pages/DashBoard/Admin/Announcement";
 import MemberShip from "../Pages/MemberShip/MemberShip";
 import Privateroute from "./Privateroute";
+import Notification from "../Pages/Notification/Notification";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
         {
           path:'/memberShip',
           element:<Privateroute><MemberShip></MemberShip></Privateroute>
+        },
+        {
+          path:'/notification',
+          element:<Notification></Notification>
         },
         {
             path:'/login',

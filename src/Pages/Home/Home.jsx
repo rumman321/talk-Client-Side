@@ -1,4 +1,4 @@
-import Navber from "../../Components/Navber/Navber";
+
 import PostCard from "../../Components/PostCard/PostCard";
 
 const Home = () => {
@@ -29,8 +29,8 @@ const Home = () => {
 
   return (
     <div>
-      <h2>this is home</h2>
-      <Navber></Navber>
+      
+     
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6">Recent Posts</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">

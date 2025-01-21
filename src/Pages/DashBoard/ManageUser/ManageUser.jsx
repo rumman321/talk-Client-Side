@@ -77,6 +77,7 @@ const ManageUser = () => {
               <th>No.</th>
               <th>User name</th>
               <th>User Email</th>
+              <th>Subscription Status</th>
               <th>Make admin</th>
               <th>Action</th>
             </tr>
@@ -87,6 +88,7 @@ const ManageUser = () => {
                 <th>{i + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+                <td>{user.Status}</td>
                 <td>
                   {user?.role == "admin" ? (
                     "Admin"

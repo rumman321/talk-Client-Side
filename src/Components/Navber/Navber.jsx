@@ -1,20 +1,51 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { MdNotifications } from "react-icons/md";
+import { useEffect, useState } from "react";
 
 const Navber = () => {
-  const { user,logOut } = useAuth();
-  //amr tw status ta dekhaite hbe kintu users route  sudhu admin er jonno
-  // const axiosPublic = useAxiosPublic()
+  const { user, logOut } = useAuth();
+  const axiosPublic = useAxiosPublic();
+  const [announcements, setAnnouncements] = useState([]);
 
-  // axiosPublic.get("/users")
-  // .then((response) => {
-  //   console.log(response.data);
-  // })
-  
-  const logout=()=>{
-    logOut()
-  }
+ 
+  useEffect(()=>{
+    axiosPublic
+      .get("/announcement")
+      .then((response) => {
+        setAnnouncements(response.data);
+      })
+      
+    
+  },[axiosPublic])
+
+  const logout = () => {
+    logOut();
+  };
+  const linkOption = (
+    <>
+      <li>
+        <Link to='/'>
+        <a>Home</a>
+        </Link>
+      </li>
+
+      <li>
+        <Link to="/memberShip">
+          <a>Membership</a>
+        </Link>
+      </li>
+      <li>
+        <Link to='/notification'>
+        <button className=" flex items-center">
+          <MdNotifications size={25}></MdNotifications>
+          <div className="badge">+ {announcements.length}</div>
+        </button>
+        </Link>
+      </li>
+    </>
+  );
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -40,76 +71,51 @@ const Navber = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
-              <li>
-                <a>Home</a>
-              </li>
-
-              <li>
-                <a>Membership</a>
-              </li>
-              <li>
-                <a>Notification icon</a>
-              </li>
+              {linkOption}
             </ul>
           </div>
           <a className="btn btn-ghost text-xl">daisyUI</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Home</a>
-            </li>
-
-            <li>
-              <NavLink to='/memberShip'>
-              <a>Membership</a>
-              </NavLink>
-            </li>
-            <li>
-              <a>Notification icon</a>
-            </li>
-          </ul>
+          <ul className="menu menu-horizontal px-1">{linkOption}</ul>
         </div>
         <div className="navbar-end">
-          {
-            user?.email && <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt={user?.displayName}
-                  src={user?.photoURL}
-                />
+          {user?.email && (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img alt={user?.displayName} src={user?.photoURL} />
+                </div>
               </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <a className="justify-between">
+                    {user?.displayName}
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <NavLink to="/dashboard">
+                    <a>Dashboard</a>
+                  </NavLink>
+                </li>
+                <li>
+                  <a onClick={logout} className="btn">
+                    Logout
+                  </a>
+                </li>
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a className="justify-between" >
-                  {user?.displayName}
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <NavLink to="/dashboard">
-                <a>Dashboard</a>
-                </NavLink>
-              </li>
-              <li>
-              <a onClick={logout} className="btn">Logout</a>
-              </li>
-            </ul>
-          </div>
-          }
+          )}
           {user?.email ? (
-            
-              " "
-            
+            " "
           ) : (
             <Link to="/login">
               <a className="btn">Join Us</a>

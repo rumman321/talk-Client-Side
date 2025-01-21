@@ -5,41 +5,38 @@ import GoogleLogin from "../SharedComponents/GoogleLogin";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SignUp = () => {
-    const navigate = useNavigate()
-    const axiosPublic = useAxiosPublic()
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const { createUser, updateUserProfile, setUser } = useAuth();
   const {
     register,
     handleSubmit,
     reset,
-    
+
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     createUser(data.email, data.password)
       .then((res) => {
         console.log(res.user);
         setUser(res.user);
         updateUserProfile(data.name, data.photo)
           .then(() => {
-            
             //create user in db
-            const userInfo={
-                name:data?.name,
-                email:data?.email,
-                photo:data?.photo,
-                Status:'Silver'
-            }
-            axiosPublic.post('/users',userInfo)
-            .then(res=>{
-                console.log(res.data);
-                if(res.data.insertedId){
-                    reset()
-                    navigate('/')
-                }
-            })
-            
+            const userInfo = {
+              name: data?.name,
+              email: data?.email,
+              photo: data?.photo,
+              Status: "Silver",
+            };
+            axiosPublic.post("/users", userInfo).then((res) => {
+              console.log(res.data);
+              if (res.data.insertedId) {
+                reset();
+                navigate("/");
+              }
+            });
           })
           .catch((error) => {
             console.error("Error updating profile:", error);
