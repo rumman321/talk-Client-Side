@@ -79,7 +79,7 @@ const ManageUser = () => {
               <th>User Email</th>
               <th>Subscription Status</th>
               <th>Make admin</th>
-              <th>Action</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
