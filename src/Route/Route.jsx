@@ -11,6 +11,7 @@ import Announcement from "../Pages/DashBoard/Admin/Announcement";
 import MemberShip from "../Pages/MemberShip/MemberShip";
 import Privateroute from "./Privateroute";
 import Notification from "../Pages/Notification/Notification";
+import UserProfile from "../Pages/DashBoard/user/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
         {
             path:'addPost',
             element:<AddPost></AddPost>
+        },
+        {
+          path:'userProfile',
+          element:<UserProfile></UserProfile>
         },
         //admin
         {
