@@ -1,11 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useParams } from "react-router-dom";
-import { FaThumbsUp, FaThumbsDown, FaShareSquare, FaCommentDots } from "react-icons/fa";
+import {
+  FaThumbsUp,
+  FaThumbsDown,
+  FaShareSquare,
+  FaCommentDots,
+} from "react-icons/fa";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useState } from "react";
 
 const PostDetails = () => {
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { id } = useParams();
+  const [vote, setVote] = useState(false);
   console.log(id);
   const {
     data: post = [],
@@ -18,10 +27,21 @@ const PostDetails = () => {
       return res.data;
     },
   });
+
+  const handleClick = async (action) => {
+    console.log(action);
+
+    const { data } = await axiosSecure.patch(`/post/${id}`, { action });
+    console.log(data);
+    if (data.modifiedCount > 0) {
+      refetch();
+      setVote(true);
+    }
+  };
   if (isLoading) {
     return <span className="loading loading-bars loading-lg"></span>;
   }
-  
+
   return (
     <div>
       <div className="card w-full md:w-96 bg-base-100 shadow-xl border border-gray-200 rounded-lg p-4">
@@ -51,12 +71,19 @@ const PostDetails = () => {
         <div className="flex justify-between items-center mt-4">
           <div className="flex gap-4">
             {/* Upvote */}
-            <button className="btn btn-sm btn-outline btn-primary flex items-center gap-1">
+            <button
+              onClick={() => handleClick("up")}
+              disabled={vote}
+              className="btn btn-sm btn-outline btn-primary flex items-center gap-1"
+            >
               <FaThumbsUp /> {post.upVote}
             </button>
 
             {/* Downvote */}
-            <button className="btn btn-sm btn-outline btn-error flex items-center gap-1">
+            <button
+              onClick={() => handleClick("down")}
+              className="btn btn-sm btn-outline btn-error flex items-center gap-1"
+            >
               <FaThumbsDown /> {post.downVote}
             </button>
           </div>
