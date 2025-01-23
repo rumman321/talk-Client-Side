@@ -1,15 +1,16 @@
 import { FaRegComments, FaRegClock, FaThumbsUp, FaTags } from "react-icons/fa";
-
 const PostCard = ({
   authorImage,
   authorName,
   title,
-  tags,
+  tag,
   time,
-  comments,
+  
   upvotes,
-  votes,
+  
 }) => {
+
+
   return (
     <div>
       <div className="card bg-base-100 shadow-lg border md:flex md:items-center md:gap-4 p-4">
@@ -37,28 +38,34 @@ const PostCard = ({
           {/* Tags */}
           <div className="mb-4 flex flex-wrap items-center">
             <FaTags className="text-gray-500 mr-2" />
-            {tags.map((tag, index) => (
+            <span
+               
+                className="badge badge-outline mr-2 mb-1 text-sm md:text-base"
+              >
+                {tag}
+              </span>
+            {/* {tag?.map((tag, index) => (
               <span
                 key={index}
                 className="badge badge-outline mr-2 mb-1 text-sm md:text-base"
               >
                 {tag}
               </span>
-            ))}
+            ))} */}
           </div>
 
           {/* Stats */}
           <div className="flex justify-between items-center flex-wrap gap-2">
             <div className="flex items-center space-x-4">
               <div className="flex items-center text-gray-500 text-sm md:text-base">
-                <FaRegComments className="mr-2" /> {comments} Comments
+                <FaRegComments className="mr-2" />  Comments
               </div>
               <div className="flex items-center text-gray-500 text-sm md:text-base">
                 <FaThumbsUp className="mr-2" /> {upvotes} Upvotes
               </div>
             </div>
             <div className="text-gray-500 text-sm md:text-base">
-              Votes: <span className="font-bold">{votes}</span>
+              Votes: <span className="font-bold">vote</span>
             </div>
           </div>
         </div>

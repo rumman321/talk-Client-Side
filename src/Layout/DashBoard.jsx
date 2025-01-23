@@ -48,7 +48,7 @@ const DashBoard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/addPost">
+                <NavLink to="/dashboard/userAddPost">
                  
                 <MdAssignmentAdd /> Add Post
                 </NavLink>

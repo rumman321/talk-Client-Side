@@ -4,7 +4,6 @@ import Home from "../Pages/Home/Home";
 import Login from "../Components/Login/Login";
 import SignUp from "../Components/Signup/SignUp";
 import DashBoard from "../Layout/DashBoard";
-import AddPost from "../Pages/DashBoard/AddPost/AddPost";
 import ManageUser from "../Pages/DashBoard/ManageUser/ManageUser";
 import AdminProfile from "../Pages/DashBoard/Admin/AdminProfile";
 import Announcement from "../Pages/DashBoard/Admin/Announcement";
@@ -12,6 +11,7 @@ import MemberShip from "../Pages/MemberShip/MemberShip";
 import Privateroute from "./Privateroute";
 import Notification from "../Pages/Notification/Notification";
 import UserProfile from "../Pages/DashBoard/user/UserProfile";
+import UserAddPost from "../Pages/DashBoard/user/UserAddPost";
 
 export const router = createBrowserRouter([
   {
@@ -45,8 +45,8 @@ export const router = createBrowserRouter([
     element:<DashBoard></DashBoard>,
     children:[
         {
-            path:'addPost',
-            element:<AddPost></AddPost>
+            path:'userAddPost',
+            element:<UserAddPost></UserAddPost>
         },
         {
           path:'userProfile',
