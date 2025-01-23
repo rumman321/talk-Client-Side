@@ -14,7 +14,7 @@ const Home = () => {
       return res.data;
     },
   });
-  console.log(posts);
+ 
   return (
     <div>
       
@@ -34,6 +34,7 @@ const Home = () => {
           {posts.map((post) => (
             <PostCard
               key={post._id}
+              id={post._id}
               authorImage={post?.authorImage}
               authorName={post?.authorName}
               title={post?.title}

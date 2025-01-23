@@ -12,6 +12,7 @@ import Privateroute from "./Privateroute";
 import Notification from "../Pages/Notification/Notification";
 import UserProfile from "../Pages/DashBoard/user/UserProfile";
 import UserAddPost from "../Pages/DashBoard/user/UserAddPost";
+import PostDetails from "../Components/PostCard/PostDetails";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
         {
             path:'/',
             element:<Home></Home>
+        },
+        {
+          path: '/postDetail/:id',
+          element:<PostDetails></PostDetails>
         },
         {
           path:'/memberShip',
