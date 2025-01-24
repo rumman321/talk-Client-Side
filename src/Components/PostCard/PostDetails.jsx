@@ -29,6 +29,13 @@ const PostDetails = () => {
       return res.data;
     },
   });
+  const {data:comments=[]}= useQuery({
+    queryKey: ["comments"],
+    queryFn: async () => {
+      const res = await axiosPublic(`/comment`);
+      return res.data;
+    },
+  })
 
   const handleClick = async (action) => {
     console.log(action);
@@ -115,7 +122,7 @@ const PostDetails = () => {
               onClick={() => document.getElementById("my_modal_1").showModal()}
               className="btn btn-sm btn-outline btn-accent flex items-center gap-1"
             >
-              <FaCommentDots /> Comment
+              <FaCommentDots />{comments.length} Comment
             </button>
             <button className="btn btn-sm btn-outline btn-success flex items-center gap-1">
               <FaShareSquare /> Share

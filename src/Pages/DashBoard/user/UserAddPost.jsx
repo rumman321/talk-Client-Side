@@ -2,11 +2,18 @@ import moment from "moment";
 import Select from "react-select";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const UserAddPost = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
-
+  const navigate = useNavigate();
+  const [selectedTag, setSelectedTag] = useState(null);
+  const handleTagChange = (selectedOption) => {
+    setSelectedTag(selectedOption ? selectedOption.value : null);
+  };
   const handleAddPost = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -19,7 +26,7 @@ const UserAddPost = () => {
       authorEmail: user?.email,
       title: formData.get("title"),
       description: formData.get("description"),
-      tag: formData.get("tag"),
+      tag: selectedTag,
       upVote: 0,
       downVote: 0,
       date: formattedDate, // Add the formatted date here
@@ -27,8 +34,30 @@ const UserAddPost = () => {
 
     console.log("New Post Data:", newPost);
     //   POST request here
-    const res = await axiosPublic.post("/myPost", newPost);
-    console.log(res.data);
+    try {
+      const res = await axiosPublic.post("/myPost", newPost);
+      console.log(res.data);
+
+      if (res.data.insertedId) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your post has been added",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      } else {
+        throw new Error("Failed to add post");
+      }
+    } catch (error) {
+      console.error("Error adding post:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong. Please try again!",
+      });
+    }
   };
 
   return (
@@ -43,7 +72,7 @@ const UserAddPost = () => {
             type="text"
             name="authorImage"
             value={user?.photoURL}
-            required
+            readOnly
             className="input input-bordered w-full"
           />
         </div>
@@ -98,17 +127,18 @@ const UserAddPost = () => {
             <span className="label-text">Tag</span>
           </label>
           <Select
-            name="tag"
             options={[
               { value: "technology", label: "Technology" },
               { value: "health", label: "Health" },
               { value: "education", label: "Education" },
-              { value: "sports", label: "Siports" },
+              { value: "sports", label: "Sports" },
             ]}
             isClearable
             className="react-select-container"
             classNamePrefix="react-select"
+            onChange={handleTagChange}
           />
+          ;
         </div>
         <button type="submit" className="btn btn-primary w-full">
           Add Post
