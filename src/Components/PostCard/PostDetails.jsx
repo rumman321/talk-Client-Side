@@ -9,13 +9,15 @@ import {
 } from "react-icons/fa";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useState } from "react";
+import useAuth from "../../Hooks/useAuth";
 
 const PostDetails = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  const {user} = useAuth()
   const { id } = useParams();
   const [vote, setVote] = useState(false);
-  console.log(id);
+  
   const {
     data: post = [],
     refetch,
@@ -40,6 +42,25 @@ const PostDetails = () => {
   };
   if (isLoading) {
     return <span className="loading loading-bars loading-lg"></span>;
+  }
+
+  const handleSubmit= async(e)=>{
+    e.preventDefault()
+    const form=e.target
+    const data= form.comment.value
+   
+
+    const info= {
+        email:user?.email,
+        comment:data,
+        feedBack:'',
+        reported:false
+    }
+    const res = await axiosSecure.post('/comment', info)
+    console.log(res.data);
+
+    // Close the modal
+    document.getElementById("my_modal_1").close();
   }
 
   return (
@@ -90,7 +111,10 @@ const PostDetails = () => {
 
           {/* Share and Comment */}
           <div className="flex gap-4">
-            <button className="btn btn-sm btn-outline btn-accent flex items-center gap-1">
+            <button
+              onClick={() => document.getElementById("my_modal_1").showModal()}
+              className="btn btn-sm btn-outline btn-accent flex items-center gap-1"
+            >
               <FaCommentDots /> Comment
             </button>
             <button className="btn btn-sm btn-outline btn-success flex items-center gap-1">
@@ -99,6 +123,25 @@ const PostDetails = () => {
           </div>
         </div>
       </div>
+      {/* Open the modal using document.getElementById('ID').showModal() method */}
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Comment!</h3>
+          
+          <div className="modal-action ">
+            <form onSubmit={handleSubmit} className="w-full ">
+            <textarea 
+            name="comment"
+            className="textarea textarea-accent w-full" 
+            placeholder="Comment">
+            </textarea> <br />
+              {/* if there is a button in form, it will close the modal */}
+              <button  className="btn" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

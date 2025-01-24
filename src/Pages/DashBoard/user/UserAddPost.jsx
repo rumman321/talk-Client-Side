@@ -4,15 +4,14 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const UserAddPost = () => {
+  const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
 
-  const {user} = useAuth()
-  const axiosPublic = useAxiosPublic()
-
-  const handleAddPost =  async(e) => {
+  const handleAddPost = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     // Get the current date in DD/MM/YYYY format
-  const formattedDate = moment().format("DD/MM/YYYY");
+    const formattedDate = moment().format("DD/MM/YYYY");
 
     const newPost = {
       authorImage: user?.photoURL,
@@ -26,22 +25,16 @@ const UserAddPost = () => {
       date: formattedDate, // Add the formatted date here
     };
 
-    
     console.log("New Post Data:", newPost);
     //   POST request here
-    const res = await axiosPublic.post('/myPost', newPost)
+    const res = await axiosPublic.post("/myPost", newPost);
     console.log(res.data);
   };
-
- 
-
-  
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
       <h2 className="text-2xl font-bold text-center mb-6">Add a New Post</h2>
       <form onSubmit={handleAddPost} className="space-y-4">
-        
         <div className="form-control">
           <label htmlFor="authorName" className="label">
             <span className="label-text">Author Image</span>
@@ -110,6 +103,7 @@ const UserAddPost = () => {
               { value: "technology", label: "Technology" },
               { value: "health", label: "Health" },
               { value: "education", label: "Education" },
+              { value: "sports", label: "Siports" },
             ]}
             isClearable
             className="react-select-container"
