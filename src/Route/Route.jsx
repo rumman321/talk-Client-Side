@@ -13,6 +13,7 @@ import Notification from "../Pages/Notification/Notification";
 import UserProfile from "../Pages/DashBoard/user/UserProfile";
 import UserAddPost from "../Pages/DashBoard/user/UserAddPost";
 import PostDetails from "../Components/PostCard/PostDetails";
+import MyPost from "../Pages/DashBoard/user/MyPost";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
         {
           path:'userProfile',
           element:<UserProfile></UserProfile>
+        },
+        {
+          path: 'myPost',
+          element:<MyPost></MyPost>
         },
         //admin
         {
