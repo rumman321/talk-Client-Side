@@ -1,23 +1,50 @@
-
 import { useQuery } from "@tanstack/react-query";
 import PostCard from "../../Components/PostCard/PostCard";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useState } from "react";
 
 const Home = () => {
- 
-
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
+  // State for pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemPerPage = 5;
   const { data: posts = [], refetch } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["posts",currentPage],
     queryFn: async () => {
-      const res = await axiosPublic(`/myPost`);
+      const res = await axiosPublic(
+        `/myPost?page=${currentPage-1}&size=${itemPerPage}`
+      );
       return res.data;
     },
   });
- 
+  const { data: { count = 0 } = {} } = useQuery({
+    queryKey: ["count"],
+    queryFn: async () => {
+      const res = await axiosPublic(`/postCount`);
+      return res.data;
+    },
+  });
+  
+  
+  const numberOfPages = Math.ceil(count / itemPerPage);
+  // const pages = []
+  // for(let i =0; i< numberOfPages; i++){
+  //   pages.push(i)
+  // }
+  const pages = [...Array(numberOfPages).keys()];
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const handleNext = () => {
+    if (currentPage < pages.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <div>
-      
       <div className="my-4 text-center">
         <input
           type="text"
@@ -27,7 +54,7 @@ const Home = () => {
           onChange={null} // Trigger handleSearch on every change
         />
       </div>
-     
+
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6">Recent Posts</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">
@@ -41,9 +68,31 @@ const Home = () => {
               tag={post?.tag}
               time={post?.date}
               upvotes={post.upVote}
-              
             />
           ))}
+        </div>
+      </div>
+      {/* Pagination */}
+      <div className="flex justify-center my-6">
+        <div className="btn-group">
+          <p>Current Page : {currentPage}</p>
+          <button className="btn mr-3" onClick={handlePrev}>
+            Prev
+          </button>
+          {pages.map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page + 1)}
+              className={`btn mr-3 ${
+                currentPage == page + 1 ? "btn-error" : ""
+              }`}
+            >
+              {page + 1}
+            </button>
+          ))}
+          <button className="btn" onClick={handleNext}>
+            Next
+          </button>
         </div>
       </div>
     </div>
