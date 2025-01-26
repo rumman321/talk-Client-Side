@@ -1,8 +1,25 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const CheckoutForm = () => {
-    const stripe = useStripe();
+
+  const stripe = useStripe();
   const elements = useElements();
+  const {user} = useAuth()
+  const axiosPublic = useAxiosPublic()
+
+  // const { data :gold=[], isLoading ,refetch} = useQuery({
+  //   queryKey: ["userPostData"],
+  //   queryFn: async () => {
+  //     const {data} = await axiosPublic(`/gold/${user?.email}`);
+  //     return data;
+  //   },
+  //   enabled: !!user?.email, // Only run the query if user email exists
+  // });
+  // console.log(gold);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
@@ -21,54 +38,16 @@ const CheckoutForm = () => {
 
     if (error) {
       console.log("[error]", error);
-    //   setError(error?.message);
+      
     } else {
       console.log("[PaymentMethod]", paymentMethod);
-    //   setError(" ");
+     
     }
-    // //confirm payment
-    // const { paymentIntent, error: confirmError } =
-    //   await stripe.confirmCardPayment(clientSecret, {
-    //     payment_method: {
-    //       card: card,
-    //       billing_details: {
-    //         name: user?.displayName || "anonymous",
-    //         email: user?.email || "anonymous",
-    //       },
-    //     },
-    //   });
-    // if (confirmError) {
-    //   console.log("confirm Error");
-    // } else {
-    //   console.log("payment intent", paymentIntent);
-    //   if (paymentIntent.status == "succeeded") {
-    //     setId(paymentIntent.id);
-
-    //     //save the payment in database
-    //     const payment = {
-    //       email: user.email,
-    //       price: totalPrice,
-    //       transactionId: paymentIntent.id,
-    //       date: new Date(), //utc date convert. use moment js to
-    //       cartIds: cart.map((item) => item._id),
-    //       menuItemIds: cart.map((item) => item.menuId),
-    //       status: "pending",
-    //     };
-    //     const res = await axiosSecure.post(`/payments`, payment);
-    //     console.log(res.data);
-    //     if (res.data?.paymentResult?.insertedId) {
-    //       Swal.fire({
-    //         position: "top-end",
-    //         icon: "success",
-    //         title: "Your work has been saved",
-    //         showConfirmButton: false,
-    //         timer: 1500,
-    //       });
-    //       navigate("/dashboard/paymentHistory");
-    //     }
-    //     refetch();
-    //   }
-    // }
+    if(paymentMethod){
+      const {data} = await axiosPublic(`/gold/${user?.email}`);
+      console.log(data);
+    }
+    
   };
   return (
     <div>
@@ -92,7 +71,7 @@ const CheckoutForm = () => {
         <button
           className="btn bg-orange-600 btn-sm"
           type="submit"
-        //   disabled={!stripe || !clientSecret}
+          //   disabled={!stripe || !clientSecret}
         >
           Pay
         </button>
