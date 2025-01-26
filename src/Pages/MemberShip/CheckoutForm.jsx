@@ -10,15 +10,7 @@ const CheckoutForm = () => {
   const {user} = useAuth()
   const axiosPublic = useAxiosPublic()
 
-  // const { data :gold=[], isLoading ,refetch} = useQuery({
-  //   queryKey: ["userPostData"],
-  //   queryFn: async () => {
-  //     const {data} = await axiosPublic(`/gold/${user?.email}`);
-  //     return data;
-  //   },
-  //   enabled: !!user?.email, // Only run the query if user email exists
-  // });
-  // console.log(gold);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

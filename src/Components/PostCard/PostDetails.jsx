@@ -11,6 +11,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 
+
 const PostDetails = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();

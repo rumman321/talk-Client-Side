@@ -23,6 +23,7 @@ const SignUp = () => {
         setUser(res.user);
         updateUserProfile(data.name, data.photo)
           .then(() => {
+            setUser({...res.user,displayName:data.name,photoURL:data.photo})
             //create user in db
             const userInfo = {
               name: data?.name,
