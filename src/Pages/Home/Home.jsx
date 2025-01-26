@@ -5,18 +5,21 @@ import { useState } from "react";
 
 const Home = () => {
   const axiosPublic = useAxiosPublic();
+  
+  const [search, setSearchQuery] = useState("");
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemPerPage = 5;
   const { data: posts = [], refetch } = useQuery({
-    queryKey: ["posts",currentPage],
+    queryKey: ["posts",currentPage,search],
     queryFn: async () => {
       const res = await axiosPublic(
-        `/myPost?page=${currentPage-1}&size=${itemPerPage}`
+        `/myPost?page=${currentPage-1}&size=${itemPerPage}&search=${search}`
       );
       return res.data;
     },
   });
+  console.log(posts);
   const { data: { count = 0 } = {} } = useQuery({
     queryKey: ["count"],
     queryFn: async () => {
@@ -42,6 +45,9 @@ const Home = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+  const handleSearch = async (e) => {
+    setSearchQuery(e.target.value); // Update the search state
+  };
 
   return (
     <div>
@@ -50,8 +56,8 @@ const Home = () => {
           type="text"
           placeholder="Search by tag"
           className="input input-bordered w-full max-w-md"
-          value={null} // Bind to the search state
-          onChange={null} // Trigger handleSearch on every change
+          value={search} // Bind to the search state
+          onChange={handleSearch} // Trigger handleSearch on every change
         />
       </div>
 
@@ -68,6 +74,7 @@ const Home = () => {
               tag={post?.tag}
               time={post?.date}
               upvotes={post.upVote}
+              count={post?.commentCount}
             />
           ))}
         </div>

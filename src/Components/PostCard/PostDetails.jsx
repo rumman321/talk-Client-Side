@@ -29,13 +29,14 @@ const PostDetails = () => {
       return res.data;
     },
   });
-  const {data:comments=[]}= useQuery({
+  const {data:comments=[],refetch:commentRefetch}= useQuery({
     queryKey: ["comments"],
     queryFn: async () => {
-      const res = await axiosPublic(`/comment`);
+      const res = await axiosPublic(`/comment?id=${id}&email=${user?.email}`);
       return res.data;
     },
   })
+
 
   const handleClick = async (action) => {
     console.log(action);
@@ -61,10 +62,15 @@ const PostDetails = () => {
         email:user?.email,
         comment:data,
         feedBack:'',
-        reported:false
+        reported:false,
+        postId:id
     }
     const res = await axiosSecure.post('/comment', info)
     console.log(res.data);
+    if(res.data.insertedId){
+        commentRefetch()
+        console.log('insertedId');
+    }
 
     // Close the modal
     document.getElementById("my_modal_1").close();

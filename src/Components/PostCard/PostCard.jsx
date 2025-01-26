@@ -8,7 +8,9 @@ const PostCard = ({
   time,
   id,
   upvotes,
+  count
 }) => {
+  
   return (
     <div>
       <NavLink to={`/postDetail/${id}`}>
@@ -56,7 +58,7 @@ const PostCard = ({
             <div className="flex justify-between items-center flex-wrap gap-2">
               <div className="flex items-center space-x-4">
                 <div className="flex items-center text-gray-500 text-sm md:text-base">
-                  <FaRegComments className="mr-2" /> Comments
+                  <FaRegComments className="mr-2" />{count} Comments
                 </div>
                 <div className="flex items-center text-gray-500 text-sm md:text-base">
                   <FaThumbsUp className="mr-2" /> {upvotes} Upvotes

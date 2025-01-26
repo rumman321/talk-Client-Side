@@ -20,7 +20,7 @@ const MyPost = () => {
       return res.data;
     },
   });
-
+  console.log(allPosts);
   if (isLoading) {
     return <span className="loading loading-bars loading-lg"></span>;
   }
@@ -71,6 +71,7 @@ const MyPost = () => {
                 <th>{i + 1}</th>
                 <td>{user.title}</td>
                 <td>{user.upVote}</td>
+                <td>{user.commentCount}</td>
                 <td>{user.Status}</td>
 
                 <td>

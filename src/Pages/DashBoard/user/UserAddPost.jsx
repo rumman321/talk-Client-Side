@@ -5,15 +5,27 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const UserAddPost = () => {
   const { user } = useAuth();
+  console.log(user);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState(null);
+
   const handleTagChange = (selectedOption) => {
     setSelectedTag(selectedOption ? selectedOption.value : null);
   };
+
+  const { data: status = [] } = useQuery({
+    queryKey: ["status"],
+    queryFn: async () => {
+      const { data } = await axiosPublic(`/users`);
+      return data;
+    },
+  });
+  console.log(status);
   const handleAddPost = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
