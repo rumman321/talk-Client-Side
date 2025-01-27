@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { TiDeleteOutline } from "react-icons/ti";
 import { FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyPost = () => {
   const { user } = useAuth();
@@ -71,7 +72,7 @@ const MyPost = () => {
                 <th>{i + 1}</th>
                 <td>{user.title}</td>
                 <td>{user.upVote}</td>
-                <td>{user.commentCount}</td>
+                <td> <Link to={`/dashboard/commentDetails/${user._id}`}>{user.commentCount}</Link> </td>
                 <td>{user.Status}</td>
 
                 <td>

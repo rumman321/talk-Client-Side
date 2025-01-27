@@ -48,7 +48,7 @@ const Navber = () => {
   );
   return (
     <div>
-      <div className="navbar bg-base-100">
+      <div className="navbar w-10/12 mx-auto  bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -74,7 +74,7 @@ const Navber = () => {
               {linkOption}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl font-bold">Talk</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{linkOption}</ul>
@@ -98,7 +98,6 @@ const Navber = () => {
                 <li>
                   <a className="justify-between">
                     {user?.displayName}
-                    <span className="badge">New</span>
                   </a>
                 </li>
                 <li>

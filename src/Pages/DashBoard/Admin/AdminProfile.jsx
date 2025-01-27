@@ -46,15 +46,15 @@ const AdminProfile = () => {
               {info?.name}
             </h2>
             <p className="text-gray-600">{info?.email}</p>
-            {total.map((t,i) => {
-              <div key={i}>
-                <p className="text-gray-600">total posts :{t?.postCount}</p>
+            
+              <div >
+                <p className="text-gray-600">total posts :{total?.postCount}</p>
                 <p className="text-gray-600">
-                  total comments: {t?.commentCount}
+                  total comments: {total?.commentCount}
                 </p>
-                <p className="text-gray-600">total users: {t?.userCount}</p>
-              </div>;
-            })}
+                <p className="text-gray-600">total users: {total?.userCount}</p>
+              </div>
+           
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ const AdminProfile = () => {
         <ResponsiveContainer width={400} height={400}>
           <PieChart>
             <Pie
-              data={total}
+              data={total?.data1}
               dataKey="value"
               cx="50%"
               cy="50%"

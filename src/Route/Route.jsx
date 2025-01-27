@@ -14,67 +14,82 @@ import UserProfile from "../Pages/DashBoard/user/UserProfile";
 import UserAddPost from "../Pages/DashBoard/user/UserAddPost";
 import PostDetails from "../Components/PostCard/PostDetails";
 import MyPost from "../Pages/DashBoard/user/MyPost";
+import CommentDetails from "../Components/Comment/CommentDetails";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayOut></MainLayOut>,
-    children:[
-        {
-            path:'/',
-            element:<Home></Home>
-        },
-        {
-          path: '/postDetail/:id',
-          element:<PostDetails></PostDetails>
-        },
-        {
-          path:'/memberShip',
-          element:<Privateroute><MemberShip></MemberShip></Privateroute>
-        },
-        {
-          path:'/notification',
-          element:<Notification></Notification>
-        },
-        {
-            path:'/login',
-            element:<Login></Login>
-        },
-        {
-            path:'/Signup',
-            element:<SignUp></SignUp>
-        }
-    ]
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/postDetail/:id",
+        element: <PostDetails></PostDetails>,
+      },
+      {
+        path: "/memberShip",
+        element: (
+          <Privateroute>
+            <MemberShip></MemberShip>
+          </Privateroute>
+        ),
+      },
+      {
+        path: "/notification",
+        element: <Notification></Notification>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/Signup",
+        element: <SignUp></SignUp>,
+      },
+    ],
   },
   {
-    path:'/dashboard',
-    element:<DashBoard></DashBoard>,
-    children:[
-        {
-            path:'userAddPost',
-            element:<UserAddPost></UserAddPost>
-        },
-        {
-          path:'userProfile',
-          element:<UserProfile></UserProfile>
-        },
-        {
-          path: 'myPost',
-          element:<MyPost></MyPost>
-        },
-        //admin
-        {
-          path:'adminProfile',
-          element:<AdminProfile></AdminProfile>
-        },
-        {
-          path:'manageUser',
-          element:<ManageUser></ManageUser>
-        },
-        {
-          path:'announcement',
-          element:<Announcement></Announcement>
-        }
-    ]
-  }
+    path: "/dashboard",
+    element: <DashBoard></DashBoard>,
+    children: [
+      {
+        path: "/dashboard",
+        
+        element: <UserProfile></UserProfile>,
+      },
+      {
+        path: "userAddPost",
+        
+        element: <UserAddPost></UserAddPost>,
+      },
+      {
+        path: "userProfile",
+        element: <UserProfile></UserProfile>,
+      },
+      {
+        path: "myPost",
+        element: <MyPost></MyPost>,
+      },
+      {
+        path: "/dashboard/commentDetails/:id",
+        element: <CommentDetails></CommentDetails>
+      },
+      //admin
+      {
+        path: "adminProfile",
+        element: <AdminProfile></AdminProfile>,
+      },
+      {
+        path: "manageUser",
+        element: <ManageUser></ManageUser>,
+      },
+      {
+        path: "announcement",
+        element: <Announcement></Announcement>,
+      },
+    ],
+  },
 ]);

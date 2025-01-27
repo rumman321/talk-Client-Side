@@ -10,15 +10,15 @@ import {
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
-
+import { FacebookShareButton, FacebookIcon } from "react-share";
 
 const PostDetails = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-  const {user} = useAuth()
+  const { user } = useAuth();
   const { id } = useParams();
   const [vote, setVote] = useState(false);
-  
+
   const {
     data: post = [],
     refetch,
@@ -30,14 +30,13 @@ const PostDetails = () => {
       return res.data;
     },
   });
-  const {data:comments=[],refetch:commentRefetch}= useQuery({
+  const { data: comments = [], refetch: commentRefetch } = useQuery({
     queryKey: ["comments"],
     queryFn: async () => {
       const res = await axiosPublic(`/comment?id=${id}&email=${user?.email}`);
       return res.data;
     },
-  })
-
+  });
 
   const handleClick = async (action) => {
     console.log(action);
@@ -53,29 +52,28 @@ const PostDetails = () => {
     return <span className="loading loading-bars loading-lg"></span>;
   }
 
-  const handleSubmit= async(e)=>{
-    e.preventDefault()
-    const form=e.target
-    const data= form.comment.value
-   
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = form.comment.value;
 
-    const info= {
-        email:user?.email,
-        comment:data,
-        feedBack:'',
-        reported:false,
-        postId:id
-    }
-    const res = await axiosSecure.post('/comment', info)
+    const info = {
+      email: user?.email,
+      comment: data,
+      feedBack: "",
+      reported: false,
+      postId: id,
+    };
+    const res = await axiosSecure.post("/comment", info);
     console.log(res.data);
-    if(res.data.insertedId){
-        commentRefetch()
-        console.log('insertedId');
+    if (res.data.insertedId) {
+      commentRefetch();
+      console.log("insertedId");
     }
 
     // Close the modal
     document.getElementById("my_modal_1").close();
-  }
+  };
 
   return (
     <div>
@@ -129,11 +127,19 @@ const PostDetails = () => {
               onClick={() => document.getElementById("my_modal_1").showModal()}
               className="btn btn-sm btn-outline btn-accent flex items-center gap-1"
             >
-              <FaCommentDots />{comments.length} Comment
+              <FaCommentDots />
+              {comments.length} Comment
             </button>
-            <button className="btn btn-sm btn-outline btn-success flex items-center gap-1">
-              <FaShareSquare /> Share
-            </button>
+            <FacebookShareButton
+              url={`https://your-website.com/post/${id}`} // Replace this with your actual post's URL
+              quote={post.title} // Optional: A caption or description
+              hashtag="#YourHashtag" // Optional: Add a hashtag
+            >
+              <div className="btn btn-sm btn-outline btn-success flex items-center gap-1">
+                <FaShareSquare />
+                Share
+              </div>
+            </FacebookShareButton>
           </div>
         </div>
       </div>
@@ -142,16 +148,19 @@ const PostDetails = () => {
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Comment!</h3>
-          
+
           <div className="modal-action ">
             <form onSubmit={handleSubmit} className="w-full ">
-            <textarea 
-            name="comment"
-            className="textarea textarea-accent w-full" 
-            placeholder="Comment">
-            </textarea> <br />
+              <textarea
+                name="comment"
+                className="textarea textarea-accent w-full"
+                placeholder="Comment"
+              ></textarea>{" "}
+              <br />
               {/* if there is a button in form, it will close the modal */}
-              <button  className="btn" type="submit">Submit</button>
+              <button className="btn" type="submit">
+                Submit
+              </button>
             </form>
           </div>
         </div>
