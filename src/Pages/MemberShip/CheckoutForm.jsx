@@ -2,6 +2,8 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
 
@@ -9,6 +11,7 @@ const CheckoutForm = () => {
   const elements = useElements();
   const {user} = useAuth()
   const axiosPublic = useAxiosPublic()
+  const navigate = useNavigate()
 
   
 
@@ -36,7 +39,16 @@ const CheckoutForm = () => {
      
     }
     if(paymentMethod){
-      const {data} = await axiosPublic(`/gold/${user?.email}`);
+      const {data} = await axiosPublic.patch(`/gold/${user?.email}`);
+      Swal.fire({
+        position: "top-end",
+        icon: "Payment success",
+        title: "Your are now Gold Member",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      navigate('/dashboard')
+      
      
     }
     
