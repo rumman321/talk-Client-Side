@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/notification",
-        element: <Notification></Notification>,
+        element: <Privateroute><Notification></Notification></Privateroute>,
       },
       {
         path: "/login",
