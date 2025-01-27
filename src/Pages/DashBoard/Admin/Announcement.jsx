@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 const Announcement = () => {
   const { user } = useAuth();
+  console.log(user);
   const axiosSecure = useAxiosSecure()
   const navigate = useNavigate()
   const {
     register,
     handleSubmit,
-    watch,
+    
     formState: { errors },
   } = useForm()
   const onSubmit =async (data) => {
@@ -68,7 +69,7 @@ const Announcement = () => {
                   <h3 className="label-text text-2xl font-bold">Author </h3>
                 </label>
                <div className="flex justify-between items-center gap-5">
-                <img className="w-12 rounded-full" src={user?.photoURL} alt="" />
+                <img className="w-12 rounded-full" src={user?.photoURL} alt={user?.displayName} />
                 <p>{user?.displayName}</p>
                </div>
                

@@ -15,6 +15,8 @@ import UserAddPost from "../Pages/DashBoard/user/UserAddPost";
 import PostDetails from "../Components/PostCard/PostDetails";
 import MyPost from "../Pages/DashBoard/user/MyPost";
 import CommentDetails from "../Components/Comment/CommentDetails";
+import Report from "../Pages/DashBoard/Admin/Report";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -27,7 +29,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/postDetail/:id",
-        element: <PostDetails></PostDetails>,
+        element: <Privateroute><PostDetails></PostDetails></Privateroute>,
       },
       {
         path: "/memberShip",
@@ -53,7 +55,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashBoard></DashBoard>,
+    element: <Privateroute><DashBoard></DashBoard></Privateroute>,
     children: [
       {
         path: "/dashboard",
@@ -80,15 +82,19 @@ export const router = createBrowserRouter([
       //admin
       {
         path: "adminProfile",
-        element: <AdminProfile></AdminProfile>,
+        element: <AdminRoute><AdminProfile></AdminProfile></AdminRoute>,
       },
       {
         path: "manageUser",
-        element: <ManageUser></ManageUser>,
+        element: <AdminRoute><ManageUser></ManageUser></AdminRoute>,
+      },
+      {
+        path:'report',
+        element:<AdminRoute><Report></Report></AdminRoute>
       },
       {
         path: "announcement",
-        element: <Announcement></Announcement>,
+        element: <AdminRoute><Announcement></Announcement></AdminRoute>,
       },
     ],
   },

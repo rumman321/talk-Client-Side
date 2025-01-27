@@ -12,7 +12,7 @@ const MainLayOut = () => {
       </div>
 
       {/* Content below the navbar */}
-      <div className="pt-16">
+      <div className="pt-16 w-full md:w-10/12 mx-auto">
         {/* Add padding to ensure content doesn't overlap with the navbar */}
         <Outlet></Outlet>
       </div>
