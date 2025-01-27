@@ -15,11 +15,11 @@ const Login = () => {
         const form = new FormData(e.target);
         const email = form.get("email");
         const password = form.get("password");
-        console.log(email,password);
+       
         signIn(email,password)
         .then(res=>{
             const user = res.user
-            console.log(user);
+           
             Swal.fire({
               title: "Sign In Success!",
               icon: "success",

@@ -19,7 +19,6 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     createUser(data.email, data.password)
       .then((res) => {
-        console.log(res.user);
         setUser(res.user);
         updateUserProfile(data.name, data.photo)
           .then(() => {
@@ -32,7 +31,6 @@ const SignUp = () => {
               Status: "Silver",
             };
             axiosPublic.post("/users", userInfo).then((res) => {
-              console.log(res.data);
               if (res.data.insertedId) {
                 reset();
                 navigate("/");

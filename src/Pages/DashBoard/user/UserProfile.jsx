@@ -10,7 +10,6 @@ const UserProfile = () => {
 
   useEffect(() => {
     axiosPublic.get(`/users/${user?.email}`).then((res) => {
-      console.log(res.data);
       setInfo(res.data);
     });
   }, [user]);

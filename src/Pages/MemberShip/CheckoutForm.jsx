@@ -37,7 +37,7 @@ const CheckoutForm = () => {
     }
     if(paymentMethod){
       const {data} = await axiosPublic(`/gold/${user?.email}`);
-      console.log(data);
+     
     }
     
   };

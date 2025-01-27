@@ -19,7 +19,6 @@ const Home = () => {
       return res.data;
     },
   });
-  console.log(posts);
   const { data: { count = 0 } = {} } = useQuery({
     queryKey: ["count"],
     queryFn: async () => {

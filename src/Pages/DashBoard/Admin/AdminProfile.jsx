@@ -12,7 +12,6 @@ const AdminProfile = () => {
 
   useEffect(() => {
     axiosPublic.get(`/users/${user?.email}`).then((res) => {
-      console.log(res.data);
       setInfo(res.data);
     });
   }, [user]);
@@ -25,7 +24,7 @@ const AdminProfile = () => {
     },
     enabled: !!user?.email, // Only run the query if user email exists
   });
-  console.log(total);
+ 
 
   if (!info) {
     return <span className="loading loading-bars loading-lg"></span>;

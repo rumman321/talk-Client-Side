@@ -21,13 +21,12 @@ const MyPost = () => {
       return res.data;
     },
   });
-  console.log(allPosts);
+ 
   if (isLoading) {
     return <span className="loading loading-bars loading-lg"></span>;
   }
 
   const handleDelete = async (id) => {
-    console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",

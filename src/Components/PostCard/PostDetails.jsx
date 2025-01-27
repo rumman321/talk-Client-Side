@@ -39,10 +39,10 @@ const PostDetails = () => {
   });
 
   const handleClick = async (action) => {
-    console.log(action);
+    
 
     const { data } = await axiosSecure.patch(`/post/${id}`, { action });
-    console.log(data);
+    
     if (data.modifiedCount > 0) {
       refetch();
       setVote(true);
@@ -65,10 +65,10 @@ const PostDetails = () => {
       postId: id,
     };
     const res = await axiosSecure.post("/comment", info);
-    console.log(res.data);
+    
     if (res.data.insertedId) {
       commentRefetch();
-      console.log("insertedId");
+     
     }
 
     // Close the modal

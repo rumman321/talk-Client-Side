@@ -180,7 +180,6 @@ const UserAddPost = () => {
     },
     enabled: !!user?.email, // Only run the query if user email exists
   });
-  console.log(data);
 
   const { postCount = 0, userStatus = "" } = data;
 

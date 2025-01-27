@@ -10,7 +10,7 @@ const GoogleLogin = () => {
   const handleGoogleSign = () => {
     googleSignIn()
     .then(res=>{
-      console.log(res.user);
+     
       const userInfo ={
           email: res?.user?.email,
           name: res?.user?.displayName,
@@ -19,7 +19,7 @@ const GoogleLogin = () => {
       }
       axiosPublic.post("/users", userInfo)
       .then(res =>{
-          console.log(res.data)
+         
           navigate("/")
       })
   })

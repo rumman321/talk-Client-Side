@@ -17,7 +17,7 @@ const CommentDetails = () => {
       return res.data;
     },
   });
-  console.log(comments);
+
 
   const handleFeedbackChange = (commentId, feedback) => {
     setFeedbackState((prev) => ({
@@ -28,17 +28,17 @@ const CommentDetails = () => {
 
   const handleReport = async (commentId) => {
     
-    console.log(
-      `Comment ${commentId} reported with feedback:`,
-      feedbackState[commentId]
-    );
+    // console.log(
+    //   `Comment ${commentId} reported with feedback:`,
+    //   feedbackState[commentId]
+    // );
     setFeedbackState((prev) => ({
       ...prev,
       [commentId]: "reported",
     }));
     const feedback = feedbackState[commentId];
     const { data } = await axiosSecure.patch(`/comment/${commentId}`,{feedback});
-    console.log(data);
+   
   };
 
   return (
