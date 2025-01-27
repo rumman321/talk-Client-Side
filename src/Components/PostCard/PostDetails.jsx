@@ -77,7 +77,7 @@ const PostDetails = () => {
 
   return (
     <div>
-      <div className="card w-full md:w-96 bg-base-100 shadow-xl border border-gray-200 rounded-lg p-4">
+      <div className="card mt-28 mx-auto w-full md:w-96 bg-base-100 shadow-xl border border-gray-200 rounded-lg p-4">
         {/* Author Section */}
         <div className="flex items-center gap-4 mb-4">
           <img
