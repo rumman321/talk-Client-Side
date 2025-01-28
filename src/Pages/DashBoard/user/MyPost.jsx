@@ -5,10 +5,13 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const MyPost = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 10;
 
   const {
     data: allPosts = [],
@@ -21,7 +24,7 @@ const MyPost = () => {
       return res.data;
     },
   });
- 
+
   if (isLoading) {
     return <span className="loading loading-bars loading-lg"></span>;
   }
@@ -51,6 +54,11 @@ const MyPost = () => {
     });
   };
 
+  // Pagination calculations
+  const totalPages = Math.ceil(allPosts.length / postsPerPage);
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const paginatedPosts = allPosts.slice(startIndex, startIndex + postsPerPage);
+
   return (
     <div>
       <div className="overflow-x-auto">
@@ -66,14 +74,16 @@ const MyPost = () => {
             </tr>
           </thead>
           <tbody>
-            {allPosts.map((user, i) => (
+            {paginatedPosts.map((user, i) => (
               <tr key={user._id}>
-                <th>{i + 1}</th>
+                <th>{startIndex + i + 1}</th>
                 <td>{user.title}</td>
                 <td>{user.upVote}</td>
-                <td> <Link to={`/dashboard/commentDetails/${user._id}`}>{user.commentCount}</Link> </td>
-                <td>{user.Status}</td>
-
+                <td>
+                  <Link to={`/dashboard/commentDetails/${user._id}`}>
+                    {user.commentCount}
+                  </Link>
+                </td>
                 <td>
                   <button
                     className="btn btn-ghost btn-sm bg-red-600"
@@ -86,6 +96,27 @@ const MyPost = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center items-center mt-4">
+        <button
+          className="btn btn-sm mx-2"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+
+        <span className="mx-2">Page {currentPage} of {totalPages}</span>
+
+        <button
+          className="btn btn-sm mx-2"
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

@@ -6,12 +6,14 @@ const UserProfile = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
 
-  const [info, setInfo] = useState(null);
+  const [info, setInfo] = useState({});
 
   useEffect(() => {
+   if(user?.email){
     axiosPublic.get(`/users/${user?.email}`).then((res) => {
       setInfo(res.data);
     });
+   }
   }, [user]);
 
   if (!info) {

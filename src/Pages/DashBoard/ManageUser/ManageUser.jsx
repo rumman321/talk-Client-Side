@@ -8,6 +8,9 @@ import { useState } from "react";
 const ManageUser = () => {
   const axiosSecure = useAxiosSecure();
   const [search, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 10;
+
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users", search],
     queryFn: async () => {
@@ -16,9 +19,11 @@ const ManageUser = () => {
     },
   });
 
-  const handleSearch = async (e) => {
-    setSearchQuery(e.target.value); // Update the search state
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); // Reset page when searching
   };
+
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/${user._id}`).then((res) => {
       if (res.data.modifiedCount > 0) {
@@ -33,6 +38,7 @@ const ManageUser = () => {
       }
     });
   };
+
   const handleDeleteUser = (user) => {
     Swal.fire({
       title: "Are you sure?",
@@ -57,6 +63,12 @@ const ManageUser = () => {
       }
     });
   };
+
+  // Pagination calculations
+  const totalPages = Math.ceil(users.length / usersPerPage);
+  const startIndex = (currentPage - 1) * usersPerPage;
+  const paginatedUsers = users.slice(startIndex, startIndex + usersPerPage);
+
   return (
     <div>
       <div className="my-4">
@@ -64,13 +76,13 @@ const ManageUser = () => {
           type="text"
           placeholder="Search by username"
           className="input input-bordered w-full max-w-md"
-          value={search} // Bind to the search state
-          onChange={handleSearch} // Trigger handleSearch on every change
+          value={search}
+          onChange={handleSearch}
         />
       </div>
+
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
-          {/* head */}
           <thead>
             <tr>
               <th>No.</th>
@@ -82,18 +94,18 @@ const ManageUser = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, i) => (
+            {paginatedUsers.map((user, i) => (
               <tr key={user._id}>
-                <th>{i + 1}</th>
+                <th>{startIndex + i + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.Status}</td>
                 <td>
-                  {user?.role == "admin" ? (
+                  {user?.role === "admin" ? (
                     "Admin"
                   ) : (
                     <button
-                      className="btn btn-sm  bg-orange-500"
+                      className="btn btn-sm bg-orange-500"
                       onClick={() => handleMakeAdmin(user)}
                     >
                       <FaUsers size={25} />
@@ -112,6 +124,27 @@ const ManageUser = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center items-center mt-4">
+        <button
+          className="btn btn-sm mx-2"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+
+        <span className="mx-2">Page {currentPage} of {totalPages}</span>
+
+        <button
+          className="btn btn-sm mx-2"
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

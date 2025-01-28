@@ -65,7 +65,7 @@ const PostCard = ({
                 </div>
               </div>
               <div className="text-gray-500 text-sm md:text-base">
-                Votes: <span className="font-bold">vote</span>
+                Votes: <span className="font-bold">{upvotes}</span>
               </div>
             </div>
           </div>
