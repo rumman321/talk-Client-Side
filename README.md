@@ -36,8 +36,8 @@ The platform features distinct dashboards for users and admins. Admins can manag
 
 ## Technologies Used  
 
-- **Frontend:** React, React Router DOM, React Icons  
-- **Backend and Services:** Firebase  
+- **Frontend:** React, React Router DOM,Firebase  
+- **Backend and Services:** Express.js,MongoDB 
 - **Styling:** Tailwind CSS, DaisyUI  
 - **Payment Integration:** Stripe  
 - **Utilities:** Axios, Moment.js, React Hook Form, Recharts  
