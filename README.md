@@ -27,8 +27,10 @@ The platform features distinct dashboards for users and admins. Admins can manag
 ---
 
 ## Screenshot  
-
-*(Insert a screenshot showing the user dashboard or post interface)*  
+**User Dashboard:** 
+![*(Insert a screenshot showing the user dashboard or post interface)*  ](https://i.ibb.co.com/Ldppf5sX/virat.png)
+**Admin Dashboard:** 
+![*(Insert a screenshot showing the admin dashboard or post interface)*  ](https://i.ibb.co.com/tp8dWpgF/admin.png)
 
 ---
 
