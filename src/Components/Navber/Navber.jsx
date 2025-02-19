@@ -20,7 +20,10 @@ const Navber = () => {
     logOut();
   };
 
-  const navLinks = [{ path: "/", label: "Home" }];
+  const navLinks = [
+    { path: "/", label: "Home" },
+    { label: "Contact", scrollTo: "footer" },
+  ];
 
   if (user) {
     navLinks.push(
@@ -56,6 +59,7 @@ const Navber = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="btn btn-ghost"
+              aria-expanded={isOpen}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,18 +114,31 @@ const Navber = () => {
                 link.custom
               ) : (
                 <p key={index} className="pl-5">
-                  <NavLink
-                    to={link.path}
-                    className={({ isActive }) =>
-                      `${
-                        isActive
-                          ? "bg-red-500 text-white font-semibold rounded-lg transition duration-300"
-                          : "hover:text-red-500 hover:font-bold"
-                      } p-2 border shadow-xl rounded-md`
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
+                  {link.path ? (
+                    <NavLink
+                      to={link.path}
+                      className={({ isActive }) =>
+                        `${
+                          isActive
+                            ? "bg-red-500 text-white font-semibold rounded-lg transition duration-300"
+                            : "hover:text-red-500 hover:font-bold"
+                        } p-2 border shadow-xl rounded-md`
+                      }
+                    >
+                      {link.label}
+                    </NavLink>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        document
+                          .getElementById(link.scrollTo)
+                          ?.scrollIntoView({ behavior: "smooth" })
+                      }
+                      className="hover:text-red-500 hover:font-bold p-2 border shadow-xl rounded-md"
+                    >
+                      {link.label}
+                    </button>
+                  )}
                 </p>
               )
             )}
@@ -132,12 +149,19 @@ const Navber = () => {
         <div className="navbar-end">
           {user?.email && (
             <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
                 <div className="w-10 rounded-full">
                   <img alt={user?.displayName} src={user?.photoURL} />
                 </div>
               </div>
-              <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
                 <li>
                   <a className="justify-between">{user?.displayName}</a>
                 </li>
@@ -145,7 +169,9 @@ const Navber = () => {
                   <NavLink to="/dashboard">Dashboard</NavLink>
                 </li>
                 <li>
-                  <button onClick={logout} className="btn">Logout</button>
+                  <button onClick={logout} className="btn">
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>

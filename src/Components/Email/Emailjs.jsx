@@ -1,18 +1,22 @@
-import { FaFacebookSquare, FaGithub, FaLinkedinIn, FaTelegram } from "react-icons/fa";
+import {
+  FaFacebookSquare,
+  FaGithub,
+  FaLinkedinIn,
+  FaTelegram,
+} from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import { useRef } from "react";
 import Swal from "sweetalert2";
 
-
 const Emailjs = () => {
-    const form = useRef();
+  const form = useRef();
   // console.log(form);
 
   const emailSubmit = (e) => {
     e.preventDefault();
 
-    
-    emailjs.sendForm(
+    emailjs
+      .sendForm(
         import.meta.env.VITE_YOUR_SERVICE_ID,
         import.meta.env.VITE_YOUR_TEMPLATE_ID,
         form.current,
@@ -27,9 +31,9 @@ const Emailjs = () => {
             icon: "success",
             title: "Your Email has been Send",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
-          form.current.reset()
+          form.current.reset();
         },
         (error) => {
           console.log("FAILED...", error.text);
@@ -43,10 +47,12 @@ const Emailjs = () => {
   };
   return (
     <div>
-        <h3 className="text-center text-2xl font-bold p-8">Contact Us</h3>
-      <div className="container mx-auto px-4 py-12 flex flex-col md:flex-row items-start justify-between gap-8">
-        <div className="w-full md:w-1/2 ">
-        <h3 className="text-center text-xl font-bold p-8">Send Message Via  Email</h3>
+      <h3 className="text-center text-2xl font-bold p-8">Contact Us</h3>
+      <div className="container mx-auto px-4 py-12 flex flex-col  items-start justify-between gap-8">
+        <div className="w-full ">
+          <h3 className="text-center text-xl font-bold p-8">
+            Send Message Via Email
+          </h3>
           <form
             className=" p-6 rounded-lg shadow-lg"
             ref={form}
@@ -83,9 +89,11 @@ const Emailjs = () => {
             </button>
           </form>
         </div>
-        <div className="w-full md:w-1/2 text-center md:text-left">
-        <h3 className="text-center text-xl font-bold p-8">Social Media Link</h3>
-        <div className="grid grid-flow-col gap-4 items-center md:mt-40">
+        <div className="w-full  text-center md:text-left">
+          <h3 className="text-center text-xl font-bold p-8">
+            Social Media Link
+          </h3>
+          <div className="grid grid-flow-col gap-8 items-center  justify-center ">
             <a
               href="https://t.me/Rummancpa"
               target="_blank"
@@ -97,8 +105,8 @@ const Emailjs = () => {
             <a
               href="https://www.linkedin.com/in/rumman-mahfuz3333/"
               target="_blank"
-               rel="noopener noreferrer"
-               className="text-blue-700 hover:text-blue-900 text-2xl"
+              rel="noopener noreferrer"
+              className="text-blue-700 hover:text-blue-900 text-2xl"
             >
               {" "}
               <FaLinkedinIn size={30} />{" "}

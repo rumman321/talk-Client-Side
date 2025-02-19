@@ -2,7 +2,7 @@ import Emailjs from "../Email/Emailjs";
 
 const Footer = () => {
   return (
-    <div>
+    <div id="footer">
       <div className="w-full">
         <Emailjs></Emailjs>
         </div>

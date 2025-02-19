@@ -85,7 +85,7 @@ const Home = () => {
       {/* Pagination */}
       <div className="flex justify-center my-6">
         <div className="btn-group">
-          <p>Current Page : {currentPage}</p>
+          <p className="text-center">Current Page : {currentPage}</p>
           <button className="btn mr-3" onClick={handlePrev}>
             Prev
           </button>
