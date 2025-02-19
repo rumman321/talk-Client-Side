@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import PostCard from "../../Components/PostCard/PostCard";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useState } from "react";
+import Tecnology from "@/Components/Tecnology/Tecnology";
+import Banner from "@/Components/Banner/Banner";
 
 const Home = () => {
   const axiosPublic = useAxiosPublic();
@@ -50,6 +52,7 @@ const Home = () => {
 
   return (
     <div>
+    
       <div className="my-4 text-center">
         <input
           type="text"
@@ -59,6 +62,7 @@ const Home = () => {
           onChange={handleSearch} // Trigger handleSearch on every change
         />
       </div>
+
       
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6">Recent Posts</h1>
@@ -101,6 +105,7 @@ const Home = () => {
           </button>
         </div>
       </div>
+      <Tecnology></Tecnology>
     </div>
   );
 };
