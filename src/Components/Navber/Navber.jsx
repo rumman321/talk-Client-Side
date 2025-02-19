@@ -1,60 +1,65 @@
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { Link, NavLink } from "react-router-dom";
 import { MdNotifications } from "react-icons/md";
-import { useEffect, useState } from "react";
 
 const Navber = () => {
   const { user, logOut } = useAuth();
   const axiosPublic = useAxiosPublic();
   const [announcements, setAnnouncements] = useState([]);
+  const [isOpen, setIsOpen] = useState(false); // ✅ State for mobile dropdown
 
- 
-  useEffect(()=>{
-    axiosPublic
-      .get("/announcement")
-      .then((response) => {
-        setAnnouncements(response.data);
-      })
-      
-    
-  },[axiosPublic])
+  useEffect(() => {
+    axiosPublic.get("/announcement").then((response) => {
+      setAnnouncements(response.data);
+    });
+  }, []);
 
   const logout = () => {
     logOut();
   };
-  const linkOption = (
-    <>
-      <li>
-        <Link to='/'>
-        <a>Home</a>
-        </Link>
-      </li>
 
-      <li>
-        <Link to="/memberShip">
-          <a>Membership</a>
-        </Link>
-      </li>
-      <li>
-        <Link to='/notification'>
-        <button className=" flex items-center">
-          <MdNotifications size={25}></MdNotifications>
-          <div className="badge">+ {announcements.length}</div>
-        </button>
-        </Link>
-      </li>
-    </>
-  );
+  const navLinks = [{ path: "/", label: "Home" }];
+
+  if (user) {
+    navLinks.push(
+      { path: "/memberShip", label: "Membership" },
+      {
+        custom: (
+          <p key="notification">
+            <NavLink
+              to="/notification"
+              className={({ isActive }) =>
+                `flex items-center p-1 ${
+                  isActive
+                    ? "bg-red-500 text-white font-semibold rounded-lg transition duration-300"
+                    : "hover:text-red-500 hover:font-bold"
+                } md:ml-5 border shadow-xl rounded-md sm:mt-2 md:m-0`
+              }
+            >
+              <MdNotifications size={25} />
+              <div className="badge">+ {announcements.length}</div>
+            </NavLink>
+          </p>
+        ),
+      }
+    );
+  }
+
   return (
     <div>
-      <div className="navbar w-10/12 mx-auto  bg-base-100">
+      <div className="navbar w-full mx-auto bg-base-100">
         <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          {/* Mobile Dropdown Button */}
+          <div className="relative lg:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="btn btn-ghost"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -66,58 +71,88 @@ const Navber = () => {
                   d="M4 6h16M4 12h8m-8 6h16"
                 />
               </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              {linkOption}
-            </ul>
+            </button>
+
+            {/* Dropdown Menu (Mobile) */}
+            {isOpen && (
+              <ul className="absolute left-0 mt-3 w-52 bg-base-100 shadow-lg rounded-lg p-2">
+                {navLinks.map((link, index) =>
+                  link.custom ? (
+                    link.custom
+                  ) : (
+                    <li key={index} className="pl-3">
+                      <NavLink
+                        to={link.path}
+                        className={({ isActive }) =>
+                          `${
+                            isActive
+                              ? "bg-red-500 text-white font-semibold rounded-lg transition duration-300"
+                              : "hover:text-red-500 hover:font-bold"
+                          } p-2 block`
+                        }
+                      >
+                        {link.label}
+                      </NavLink>
+                    </li>
+                  )
+                )}
+              </ul>
+            )}
           </div>
           <a className="btn btn-ghost text-xl font-bold">Talk</a>
         </div>
+
+        {/* Desktop Navbar */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{linkOption}</ul>
+          <ul className="menu menu-horizontal pr-5 font-bold items-center">
+            {navLinks.map((link, index) =>
+              link.custom ? (
+                link.custom
+              ) : (
+                <li key={index} className="pl-5">
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `${
+                        isActive
+                          ? "bg-red-500 text-white font-semibold rounded-lg transition duration-300"
+                          : "hover:text-red-500 hover:font-bold"
+                      } p-2`
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                </li>
+              )
+            )}
+          </ul>
         </div>
+
+        {/* User Profile / Login Button */}
         <div className="navbar-end">
           {user?.email && (
             <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar"
-              >
+              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
                   <img alt={user?.displayName} src={user?.photoURL} />
                 </div>
               </div>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-              >
+              <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 <li>
-                  <a className="justify-between">
-                    {user?.displayName}
-                  </a>
+                  <a className="justify-between">{user?.displayName}</a>
                 </li>
                 <li>
-                  <NavLink to="/dashboard">
-                    <a>Dashboard</a>
-                  </NavLink>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
                 </li>
                 <li>
-                  <a onClick={logout} className="btn">
-                    Logout
-                  </a>
+                  <button onClick={logout} className="btn">Logout</button>
                 </li>
               </ul>
             </div>
           )}
-          {user?.email ? (
-            " "
-          ) : (
+          {!user?.email && (
             <Link to="/login">
-              <a className="btn">Join Us</a>
+              <button className="btn bg-orange-600">Join Us</button>
             </Link>
           )}
         </div>
