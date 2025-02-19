@@ -7,16 +7,16 @@ import Banner from "@/Components/Banner/Banner";
 
 const Home = () => {
   const axiosPublic = useAxiosPublic();
-  
+
   const [search, setSearchQuery] = useState("");
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemPerPage = 5;
   const { data: posts = [], refetch } = useQuery({
-    queryKey: ["posts",currentPage,search],
+    queryKey: ["posts", currentPage, search],
     queryFn: async () => {
       const res = await axiosPublic(
-        `/myPost?page=${currentPage-1}&size=${itemPerPage}&search=${search}`
+        `/myPost?page=${currentPage - 1}&size=${itemPerPage}&search=${search}`
       );
       return res.data;
     },
@@ -28,8 +28,7 @@ const Home = () => {
       return res.data;
     },
   });
-  
-  
+
   const numberOfPages = Math.ceil(count / itemPerPage);
   // const pages = []
   // for(let i =0; i< numberOfPages; i++){
@@ -52,7 +51,9 @@ const Home = () => {
 
   return (
     <div>
-    
+      <div className="">
+      <Banner></Banner>
+      </div>
       <div className="my-4 text-center">
         <input
           type="text"
@@ -63,7 +64,6 @@ const Home = () => {
         />
       </div>
 
-      
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6">Recent Posts</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">

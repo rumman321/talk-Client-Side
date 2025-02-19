@@ -1,7 +1,8 @@
 "use client";
 
 import createGlobe from "cobe";
-import { useMotionValue, useSpring } from "framer-motion";
+
+import { useMotionValue, useSpring } from "framer-motion";//"motion/react" change this use "framer-motion"
 import { useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
