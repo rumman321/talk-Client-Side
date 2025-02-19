@@ -80,7 +80,7 @@ const Navber = () => {
                   link.custom ? (
                     link.custom
                   ) : (
-                    <li key={index} className="pl-3">
+                    <p key={index} className="pl-3">
                       <NavLink
                         to={link.path}
                         className={({ isActive }) =>
@@ -93,7 +93,7 @@ const Navber = () => {
                       >
                         {link.label}
                       </NavLink>
-                    </li>
+                    </p>
                   )
                 )}
               </ul>
@@ -109,7 +109,7 @@ const Navber = () => {
               link.custom ? (
                 link.custom
               ) : (
-                <li key={index} className="pl-5">
+                <p key={index} className="pl-5">
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
@@ -117,12 +117,12 @@ const Navber = () => {
                         isActive
                           ? "bg-red-500 text-white font-semibold rounded-lg transition duration-300"
                           : "hover:text-red-500 hover:font-bold"
-                      } p-2`
+                      } p-2 border shadow-xl rounded-md`
                     }
                   >
                     {link.label}
                   </NavLink>
-                </li>
+                </p>
               )
             )}
           </ul>
