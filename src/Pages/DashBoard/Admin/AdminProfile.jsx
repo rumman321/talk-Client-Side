@@ -3,6 +3,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import { ShinyButton } from "@/Components/magicui/shiny-button";
 
 const AdminProfile = () => {
   const { user } = useAuth();
@@ -24,7 +25,6 @@ const AdminProfile = () => {
     },
     enabled: !!user?.email, // Only run the query if user email exists
   });
- 
 
   if (!info) {
     return <span className="loading loading-bars loading-lg"></span>;
@@ -42,18 +42,45 @@ const AdminProfile = () => {
             </div>
             <div className="badge badge-primary mt-2">{info?.role}</div>
             <h2 className="card-title text-gray-800 text-2xl font-bold mt-4">
-              {info?.name}
+              Name : {info?.name}
             </h2>
-            <p className="text-gray-600">{info?.email}</p>
-            
-              <div >
-                <p className="text-gray-600">total posts :{total?.postCount}</p>
-                <p className="text-gray-600">
-                  total comments: {total?.commentCount}
-                </p>
-                <p className="text-gray-600">total users: {total?.userCount}</p>
-              </div>
-           
+
+            <div className="flex flex-col justify-start items-start">
+              <p className="text-gray-600">
+                {" "}
+                <span className="font-bold">Email : </span>
+                {info?.email}
+              </p>
+              <p className="text-gray-600">
+                {" "}
+                <span className="font-bold">Admin Id : </span>
+                {info?._id}
+              </p>
+              <p className="text-gray-600">
+                {" "}
+                <span className="font-bold">Total Posts :</span>{" "}
+                {total?.postCount}
+              </p>
+              <p className="text-gray-600">
+                <span className="font-bold">Total Comments :</span>{" "}
+                {total?.commentCount}
+              </p>
+              <p className="text-gray-600">
+                {" "}
+                <span className="font-bold">Total Users :</span>{" "}
+                {total?.userCount}
+              </p>
+            </div>
+            <div>
+              <ShinyButton
+                className=""
+                onClick={() =>
+                  document.getElementById("my_modal_1").showModal()
+                }
+              >
+                Update Profile
+              </ShinyButton>
+            </div>
           </div>
         </div>
       </div>
@@ -73,6 +100,23 @@ const AdminProfile = () => {
           </PieChart>
         </ResponsiveContainer>
       </div>
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-xl mb-2">Feature Coming Soon!</h3>
+          <p className="text-gray-700">
+            We're working hard to bring you this feature. Stay tuned for
+            updates!
+          </p>
+          <div className="modal-action mt-4">
+            {" "}
+            {/* Added margin top */}
+            <form method="dialog">
+              <button className="btn btn-primary">Got it</button>{" "}
+              {/* Primary button */}
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
