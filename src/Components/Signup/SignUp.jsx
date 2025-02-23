@@ -4,6 +4,8 @@ import useAuth from "../../Hooks/useAuth";
 import GoogleLogin from "../SharedComponents/GoogleLogin";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import Lottie from "lottie-react";
+import lottieSignin from "../../assets/myLottie/login2.json"
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -55,9 +57,14 @@ const SignUp = () => {
     <div>
       <div className=" min-h-screen">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          
+        <div>
+        <h1 className="text-3xl text-center font-bold">Sign Up now!</h1>
+        <div className="w-96">
+          <Lottie animationData={lottieSignin} loop={true} ></Lottie>
+        </div>
+        </div>
           <div className="card bg-base-100 w-full  max-w-md shadow-2xl">
-          <h1 className="text-3xl text-center font-bold">Sign Up now!</h1>
+          
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -151,7 +158,7 @@ const SignUp = () => {
               Already Have an Account ?{" "}
               <Link className="text-red-600" to="/login">
                 {" "}
-                login
+                <span className="font-bold">login</span>
               </Link>{" "}
             </p>
             <GoogleLogin></GoogleLogin>

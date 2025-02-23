@@ -27,7 +27,7 @@ const GoogleLogin = () => {
   return (
     <div>
       <div>
-        <h2 className="font-semibold ">OR</h2>
+        <h2 className="font-semibold text-center ">OR</h2>
         <div className="flex flex-col gap-5 mt-5">
           <button className="btn" onClick={handleGoogleSign}>
             <FcGoogle></FcGoogle>Login with Google

@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import GoogleLogin from "../SharedComponents/GoogleLogin";
 import Swal from "sweetalert2";
+import lottieLogin from "../../assets/myLottie/login2.json"
+import Lottie from "lottie-react";
 
 const Login = () => {
     const [error, setError] = useState({});
@@ -30,12 +32,16 @@ const Login = () => {
     }
   return (
     <div>
-      <div className="pt-32 text-center">
-        <div className="min-h-screen flex justify-center items-center">
+      <div className=" text-center">
+        <div className="min-h-screen flex flex-col lg:flex-row-reverse justify-center items-center">
+        <div>
+        <h1 className="text-3xl text-center font-bold">Login Your Account</h1>
+        <div className="w-96">
+          <Lottie animationData={lottieLogin} loop={true} ></Lottie>
+        </div>
+        </div>
           <div className="card bg-base-100 w-full max-w-lg p-10 shrink-0 shadow-2xl">
-            <h2 className="font-bold text-2xl text-center">
-              Login your account
-            </h2>
+            
             <form onSubmit={handleSubmit} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -68,13 +74,13 @@ const Login = () => {
                 <button className="btn btn-primary rounded-sm">Login</button>
               </div>
             </form>
-            <br />
+            
             <GoogleLogin></GoogleLogin>
 
             <p className="text-center font-semibold">
               Don't have an account ?{" "}
               <Link className="text-red-600" to="/Signup">
-                Sign up
+               <span className="font-bold">Sign up</span>
               </Link>
             </p>
           </div>
