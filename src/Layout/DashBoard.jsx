@@ -1,4 +1,4 @@
-import { FaHome, FaList, FaMicrophone } from "react-icons/fa";
+import { FaBars, FaHome, FaList, FaMicrophone } from "react-icons/fa";
 import { MdAssignmentAdd, MdPerson, MdReport } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
@@ -18,9 +18,9 @@ const DashBoard = () => {
         {/* Mobile toggle button */}
         <label
           htmlFor="dashboard-drawer"
-          className="btn btn-primary drawer-button lg:hidden fixed bottom-4 right-4 z-50"
+          className="btn btn-primary drawer-button lg:hidden fixed top-4 right-4 z-50"
         >
-          Menu
+          <FaBars />
         </label>
       </div>
 

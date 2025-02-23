@@ -169,7 +169,7 @@ const Navber = () => {
                   <NavLink to="/dashboard">Dashboard</NavLink>
                 </li>
                 <li>
-                  <button onClick={logout} className="btn">
+                  <button onClick={logout} className="btn btn-sm">
                     Logout
                   </button>
                 </li>
