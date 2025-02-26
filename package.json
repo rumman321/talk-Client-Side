@@ -19,8 +19,9 @@
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
     "devicon": "^2.16.0",
+    "dotted-map": "^2.2.3",
     "firebase": "^11.1.0",
-    "framer-motion": "^12.4.4",
+    "framer-motion": "^12.4.7",
     "localforage": "^1.10.0",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.475.0",
@@ -41,7 +42,8 @@
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.15.10",
     "tailwind-merge": "^3.0.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "use-local-storage-state": "^19.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

@@ -4,6 +4,8 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useState } from "react";
 import Tecnology from "@/Components/Tecnology/Tecnology";
 import Banner from "@/Components/Banner/Banner";
+import Worldmap from "@/Components/WorldMap/Worldmap";
+import LoadSkeletion from "@/Components/LoadingSkeleton/LoadSkeletion";
 
 const Home = () => {
   const axiosPublic = useAxiosPublic();
@@ -12,7 +14,7 @@ const Home = () => {
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemPerPage = 5;
-  const { data: posts = [], refetch } = useQuery({
+  const { data: posts = [], refetch, isLoading } = useQuery({
     queryKey: ["posts", currentPage, search],
     queryFn: async () => {
       const res = await axiosPublic(
@@ -48,6 +50,9 @@ const Home = () => {
   const handleSearch = async (e) => {
     setSearchQuery(e.target.value); // Update the search state
   };
+  if(isLoading){
+    return <LoadSkeletion></LoadSkeletion>
+  }
 
   return (
     <div>
@@ -105,6 +110,7 @@ const Home = () => {
           </button>
         </div>
       </div>
+      <Worldmap></Worldmap>
       <Tecnology></Tecnology>
     </div>
   );

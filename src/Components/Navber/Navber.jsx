@@ -8,7 +8,8 @@ const Navber = () => {
   const { user, logOut } = useAuth();
   const axiosPublic = useAxiosPublic();
   const [announcements, setAnnouncements] = useState([]);
-  const [isOpen, setIsOpen] = useState(false); // ✅ State for mobile dropdown
+  const [isOpen, setIsOpen] = useState(false); // ✅ Mobile dropdown state
+  const [isContactActive, setIsContactActive] = useState(false); // ✅ Track Contact button state
 
   useEffect(() => {
     axiosPublic.get("/announcement").then((response) => {
@@ -18,6 +19,13 @@ const Navber = () => {
 
   const logout = () => {
     logOut();
+  };
+
+  const handleNavClick = (scrollTo) => {
+    document.getElementById(scrollTo)?.scrollIntoView({ behavior: "smooth" });
+    setIsOpen(false); // ✅ Close dropdown on click
+    setIsContactActive(true); // ✅ Mark Contact as active
+    setTimeout(() => setIsContactActive(false), 2000); // ✅ Reset after 2 sec
   };
 
   const navLinks = [
@@ -40,6 +48,7 @@ const Navber = () => {
                     : "hover:text-red-500 hover:font-bold"
                 } md:ml-5 border shadow-xl rounded-md sm:mt-2 md:m-0`
               }
+              onClick={() => setIsOpen(false)} // ✅ Close dropdown on click
             >
               <MdNotifications size={25} />
               <div className="badge">+ {announcements.length}</div>
@@ -83,7 +92,7 @@ const Navber = () => {
                 {navLinks.map((link, index) =>
                   link.custom ? (
                     link.custom
-                  ) : (
+                  ) : link.path ? (
                     <p key={index} className="pl-3">
                       <NavLink
                         to={link.path}
@@ -94,9 +103,23 @@ const Navber = () => {
                               : "hover:text-red-500 hover:font-bold"
                           } p-2 block`
                         }
+                        onClick={() => setIsOpen(false)} // ✅ Close dropdown on click
                       >
                         {link.label}
                       </NavLink>
+                    </p>
+                  ) : (
+                    <p key={index} className="pl-3">
+                      <button
+                        onClick={() => handleNavClick(link.scrollTo)}
+                        className={`p-2 block ${
+                          isContactActive
+                            ? "bg-red-500 text-white font-semibold rounded-lg transition duration-300"
+                            : "hover:text-red-500 hover:font-bold"
+                        }`}
+                      >
+                        {link.label}
+                      </button>
                     </p>
                   )
                 )}
@@ -129,12 +152,12 @@ const Navber = () => {
                     </NavLink>
                   ) : (
                     <button
-                      onClick={() =>
-                        document
-                          .getElementById(link.scrollTo)
-                          ?.scrollIntoView({ behavior: "smooth" })
-                      }
-                      className="hover:text-red-500 hover:font-bold p-2 border shadow-xl rounded-md"
+                      onClick={() => handleNavClick(link.scrollTo)}
+                      className={`p-2 border shadow-xl rounded-md ${
+                        isContactActive
+                          ? "bg-red-500 text-white font-semibold rounded-lg transition duration-300"
+                          : "hover:text-red-500 hover:font-bold"
+                      }`}
                     >
                       {link.label}
                     </button>
@@ -154,7 +177,7 @@ const Navber = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
-                <div className="w-10 rounded-full">
+                <div className="w-10 rounded-full ring ring-blue-400">
                   <img alt={user?.displayName} src={user?.photoURL} />
                 </div>
               </div>
