@@ -6,6 +6,7 @@ import Tecnology from "@/Components/Tecnology/Tecnology";
 import Banner from "@/Components/Banner/Banner";
 import Worldmap from "@/Components/WorldMap/Worldmap";
 import LoadSkeletion from "@/Components/LoadingSkeleton/LoadSkeletion";
+import Instruction from "@/Components/Instruction/Instruction";
 
 const Home = () => {
   const axiosPublic = useAxiosPublic();
@@ -111,6 +112,7 @@ const Home = () => {
         </div>
       </div>
       <Worldmap></Worldmap>
+      <Instruction></Instruction>
       <Tecnology></Tecnology>
     </div>
   );
