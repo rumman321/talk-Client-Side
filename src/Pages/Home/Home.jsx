@@ -14,7 +14,7 @@ const Home = () => {
   const [search, setSearchQuery] = useState("");
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const itemPerPage = 5;
+  const itemPerPage = 6;
   const { data: posts = [], refetch, isLoading } = useQuery({
     queryKey: ["posts", currentPage, search],
     queryFn: async () => {
@@ -61,14 +61,17 @@ const Home = () => {
       <Banner></Banner>
       </div>
       <div className="my-4 text-center">
-        <input
-          type="text"
-          placeholder="Search by tag"
-          className="input input-bordered w-full max-w-md"
-          value={search} // Bind to the search state
-          onChange={handleSearch} // Trigger handleSearch on every change
-        />
-      </div>
+  <div className="p-[2px] rounded-lg bg-gradient-to-r from-purple-500 via-violet-500 to-purple-700 w-full max-w-md mx-auto">
+    <input
+      type="text"
+      placeholder="Search by tag"
+      className="input input-bordered w-full rounded-lg bg-white text-black"
+      value={search}
+      onChange={handleSearch}
+    />
+  </div>
+</div>
+
 
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6">Recent Posts</h1>

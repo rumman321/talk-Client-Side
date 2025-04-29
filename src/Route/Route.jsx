@@ -17,6 +17,7 @@ import MyPost from "../Pages/DashBoard/user/MyPost";
 import CommentDetails from "../Components/Comment/CommentDetails";
 import Report from "../Pages/DashBoard/Admin/Report";
 import AdminRoute from "./AdminRoute";
+import AiChatboat from "@/Components/AiChatboat/AiChatboat";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "/notification",
         element: <Privateroute><Notification></Notification></Privateroute>,
+      },
+      {
+        path: "/chat",
+        element: <Privateroute><AiChatboat></AiChatboat></Privateroute>,
       },
       {
         path: "/login",

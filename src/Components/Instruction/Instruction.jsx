@@ -3,7 +3,7 @@ import Marquee from 'react-fast-marquee';
 
 function Instruction() {
   return (
-    <div className="py-12 bg-base-200">
+    <div className="py-12 ">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-2">How to Use TALK</h2>
         <p className="text-center text-gray-500 mb-8">

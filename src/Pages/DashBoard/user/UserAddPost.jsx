@@ -239,7 +239,7 @@ const UserAddPost = () => {
 
   // Loading or "Become a Member" view
   if (isLoading) {
-    return <span className="loading loading-bars loading-lg"></span>
+    return <span className="loading loading-bars loading-lg"></span>;
   }
 
   if (postCount >= 5 && userStatus === "Silver") {
@@ -333,6 +333,22 @@ const UserAddPost = () => {
               { value: "health", label: "Health" },
               { value: "education", label: "Education" },
               { value: "sports", label: "Sports" },
+              { value: "entertainment", label: "Entertainment" },
+              { value: "finance", label: "Finance" },
+              { value: "travel", label: "Travel" },
+              { value: "food", label: "Food" },
+              { value: "fashion", label: "Fashion" },
+              { value: "business", label: "Business" },
+              { value: "news", label: "News" },
+              { value: "lifestyle", label: "Lifestyle" },
+              { value: "science", label: "Science" },
+              { value: "environment", label: "Environment" },
+              { value: "gaming", label: "Gaming" },
+              { value: "art", label: "Art" },
+              { value: "history", label: "History" },
+              { value: "relationships", label: "Relationships" },
+              { value: "self_improvement", label: "Self Improvement" },
+              { value: "law", label: "Law" },
             ]}
             isClearable
             className="react-select-container"

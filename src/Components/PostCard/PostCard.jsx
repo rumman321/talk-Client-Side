@@ -14,7 +14,8 @@ const PostCard = ({
   return (
     <div>
       <NavLink to={`/postDetail/${id}`}>
-        <div className="card bg-base-100 shadow-lg border md:flex md:items-center md:gap-4 p-4">
+        <div className="card bg-base-100 shadow-lg border md:flex md:items-center md:gap-4 p-4 
+  transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
           {/* Author Info */}
           <div className="flex-shrink-0">
             <img
